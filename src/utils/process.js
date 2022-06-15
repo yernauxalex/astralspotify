@@ -6,7 +6,7 @@ function isOdd(n) {
     return Math.abs(n % 2) === 1;
 }
 
-export function userGenre(data) {
+export function getUserGenre(data) {
     let userGenre = [];
     data.items.forEach(function (item) {
         let artistGenre = item.genres;
@@ -19,7 +19,7 @@ export function userGenre(data) {
     return userGenre;
 }
 
-export function userCompatibility(userGenre, genreList) {
+export function getUserCompatibility(userGenre, genreList) {
     let userCompatibility = 0;
     userGenre.forEach(function (genre) {
         genreList.forEach(function (genreList) {
@@ -33,11 +33,10 @@ export function userCompatibility(userGenre, genreList) {
         });
     });
     userCompatibility = Math.abs(userCompatibility);
-    console.log('userCompatibility', userCompatibility);
     return userCompatibility;
 }
 
-export function userSign(userCompatibility, userSign, signList) {
+export function getUserSign(userCompatibility, userSign, signList) {
     var signIndex = 0
     signList.forEach(function (sign, index) {
         if (sign.name === userSign) {
@@ -59,6 +58,7 @@ export function userSign(userCompatibility, userSign, signList) {
             }
         });
     });
+    console.log("bestSign: " + bestSign);
     return bestSign;
 }
 
