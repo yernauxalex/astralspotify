@@ -1,5 +1,5 @@
 import React, { useEffect, useState }from 'react';
-import { userGenre, userCompatibility, userSign } from '../utils/process';
+import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
 import { sign }   from '../datas/sign';
 import { genre } from '../datas/genre';
 var Spotify = require('spotify-web-api-js');
@@ -7,41 +7,64 @@ var Spotify = require('spotify-web-api-js');
 var spotifyApi = new Spotify();
 
 
-async function getTopArtists(token, spotifyApi) {
-  spotifyApi.setAccessToken(token);
-  spotifyApi.getMyTopArtists({
-      limit: 10,
-      time_range: 'long_term'
-  }).then(function (data) {
-      console.log(data);
-      let userG = userGenre(data);
-      let userCpt = userCompatibility(userG, genre)
-      userSign(userCpt, userSign, sign)
-  }
-  ).catch(function (err) {
-      console.log(err);
-  }
-  );
-}
+
 
 function Result(props) {
   const [token, setToken] = useState(null);
+  const [data, setData] = useState(null);
   const [ userSign, setUserSign ] = useState('');
+  const [ matchingSign, setMatchingSign ] = useState('');
   
   useEffect(() => {
     setToken(props.token);
-    setUserSign('aries')
     console.log(token);
       if (token) {
-        getTopArtists(token, spotifyApi);
+        
       }
     }, [props.token, token])
   
+    const getData = async (e) => {
+      e.preventDefault();
+      async function getTopArtists(token, spotifyApi) {
+        spotifyApi.setAccessToken(token);
+        spotifyApi.getMyTopArtists({
+            limit: 10,
+            time_range: 'long_term'
+        }).then(function (data) {
+            console.log(data);
+            let userG = getUserGenre(data);
+            let userCpt = getUserCompatibility(userG, genre)
+            let matchSign = getUserSign(userCpt, userSign, sign)
+            setMatchingSign(matchSign)
+            setData(data);
+            return data;
+        }
+        ).catch(function (err) {
+            console.log(err);
+        }
+        );
+      }
+      if (token) {
+        getTopArtists(token, spotifyApi);
+      }
+    }
 
   return (
+    <>
     <div>
       <h1>Result</h1>
+      <label>Enter your sign</label>
+      <select value={userSign} onChange={(e) => setUserSign(e.target.value)}>
+        {sign.map(({name, unicode}) => (
+          <option key={name} value={name}>{name} {unicode}</option>
+        ))}
+        </select>
+      <input type="submit" value="Found your matching sign" onClick={getData}/>
     </div>
+    <div>
+      <h2>Your matching sign is {matchingSign}</h2>
+    </div>
+    </>
   );
 }
 export default Result;
