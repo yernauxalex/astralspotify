@@ -18,10 +18,6 @@ function Result(props) {
 
   useEffect(() => {
     setToken(props.token);
-    console.log(token);
-    // if (token) {
-
-    // }
   }, [props.token, token]);
 
   const getData = async (e) => {
