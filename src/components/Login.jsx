@@ -1,13 +1,12 @@
 import React from 'react';
-//import { authEndpoint, clientId, redirectUri, scopes } from '../env';
 import StyledLogin from '../styles/StyledLogin';
 
 
 
 function Login() {
-  const authEndpoint = process.env.REACT_APP_AUTHENDPOINT
-  const clientId = process.env.REACT_APP_CLIENDID
-  const redirectUri = process.env.REACT_APP_REDIRECTURI
+  const authEndpoint = 'https://accounts.spotify.com/authorize'
+  const clientId = '43bfdb7c53c642d8bfd73c2d94c64983'
+  const redirectUri = 'https://62ac84f931585f0009dd42b8--resonant-medovik-c1c915.netlify.app/'
   const scopes = ['user-top-read',]
 
   return (
