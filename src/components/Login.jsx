@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <StyledLogin>
-      <a href={`https://accounts.spotify.com/authorize?client_id=43bfdb7c53c642d8bfd73c2d94c64983&response_type=token&redirect_uri=https://62ac84f931585f0009dd42b8--resonant-medovik-c1c915.netlify.app/&scope=['user-top-read',]`}>Login with Spotify</a>
+      <a href={`https://accounts.spotify.com/authorize?client_id=43bfdb7c53c642d8bfd73c2d94c64983&response_type=token&redirect_uri=https://62ac84f931585f0009dd42b8--resonant-medovik-c1c915.netlify.app/&scope=user-top-read`}>Login with Spotify</a>
     </StyledLogin>
   );
 }
