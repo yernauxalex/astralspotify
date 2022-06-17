@@ -1,6 +1,6 @@
 import React from "react";
 import StyledFooter from "../styles/StyledFooter";
-import spotifyLogo from '../assets/Spotify_Logo_RGB_Green.png';
+//import spotifyLogo from '../assets/Spotify_Logo_RGB_Green.png';
 
 function Footer() {
     return (
