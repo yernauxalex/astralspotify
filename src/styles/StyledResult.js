@@ -3,11 +3,12 @@ import colors from './colors';
 
 const StyledResult = styled.section`
 display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 80%;
     width: 100%;
+    font-size: 1.5rem; 
     .container-select {
         display: flex;
         flex-direction: raw;

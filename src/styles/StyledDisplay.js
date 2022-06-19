@@ -38,6 +38,7 @@ const StyledDisplay = styled.section`
         justify-content: center;
         align-content: stretch;
         gap: 1rem;
+        padding: 0;
     }
     .main-list-items{
         display: flex;
