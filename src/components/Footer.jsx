@@ -11,13 +11,16 @@ function Footer() {
                 ❤️
             </span>{" "}
             by{" "}
-            <a href="
-            
-            ">
+            <a href="https://github.com/yernauxalex/astralspotify" target="_blank" rel="noreferrer">
                 <span role="img" aria-label="linkedin">
                     💻
-                </span>
-            </a>
+                </span></a>
+        </p>
+        <p>For any suggestions please DM me on
+        <a href="https://twitter.com/Alexys_dev" target="_blank" rel="noreferrer">
+                <span role="img" aria-label="twitter">
+                    🐦
+                </span></a>
         </p>
         {/* <img src={spotifyLogo} alt="spotify logo" /> */}
         </StyledFooter>

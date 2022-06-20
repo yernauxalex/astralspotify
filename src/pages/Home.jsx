@@ -21,11 +21,11 @@ function Home() {
   }, [])
   
   return (
-    <div>
+    <>
       {token ? (
         <Result token={token} />
       ) : ( <Login /> )}
-    </div>
+    </>
   );
 }
 export default Home;

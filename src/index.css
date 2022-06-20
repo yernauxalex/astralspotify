@@ -17,5 +17,15 @@ code {
 }
 h1 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
+}
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 280px) {
+  h1 {
+    font-size: 1.5rem;
+  }
 }
