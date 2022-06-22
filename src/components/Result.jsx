@@ -37,24 +37,40 @@ function Result(props) {
           setMatchingSign(matchSign);
           getUnicodeMatchingSign(matchSign);
           setDataset(data);
+          sessionStorage.setItem('spotifyData', JSON.stringify(data));
           return data;
         })
         .catch(function (err) {
           console.log(err);
         });
     }
-    function getUnicodeMatchingSign(matchingSign){
-      sign.map(sign => {
-        if(sign.name === matchingSign){
+    function getUnicodeMatchingSign(matchingSign) {
+      sign.map((sign) => {
+        if (sign.name === matchingSign) {
           console.log(sign.unicode);
           setMatchingUnicode(sign.unicode);
           return sign.unicode;
         }
-      })
+      });
     }
     if (token) {
-      getTopArtists(token, spotifyApi);
+      if (sessionStorage.getItem('spotifyData')) {
+        let data = JSON.parse(sessionStorage.getItem('spotifyData'));
+        let userG = getUserGenre(data);
+        let userCpt = getUserCompatibility(userG, genre);
+        let matchSign = getUserSign(userCpt, userSign, sign);
+        setMatchingSign(matchSign);
+        getUnicodeMatchingSign(matchSign);
+        setDataset(data);
+        return data;
+      } else {
+        getTopArtists(token, spotifyApi);
+      }
     }
+  };
+
+  const logout = () => {
+    sessionStorage.removeItem('spotifyData');
   };
 
   return (
@@ -70,12 +86,17 @@ function Result(props) {
             ))}
           </select>
         </div>
-        <input type="submit" value="Found your matching sign" onClick={getData}/>
-        <a href = "/"> Logout </a> 
+        <input type="submit" value="Found your matching sign" onClick={getData} />
+        <a href="/" onClick={logout}>
+          {' '}
+          Logout{' '}
+        </a>
       </StyledResult>
       {matchingSign && dataset ? (
         <StyledDisplay>
-          <p>Your matching sign is {matchingSign} {matchingUnicode}</p>
+          <p>
+            Your matching sign is {matchingSign} {matchingUnicode}
+          </p>
           <h2>Your Top artists all time:</h2>
           <DisplayGenre data={dataset.items} />
         </StyledDisplay>
