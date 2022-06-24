@@ -18,6 +18,7 @@ function Result(props) {
   const [matchingUnicode, setMatchingUnicode] = useState('');
   const [userGenre, setUserGenre] = useState(null);
   const [showVote, setShowVote] = useState(false);
+  const [voteButton, setVoteButton] = useState('Open the vote form');
 
   useEffect(() => {
     setToken(props.token);
@@ -75,6 +76,17 @@ function Result(props) {
     }
   };
 
+  const handleVoteButton = (e) => {
+    e.preventDefault();
+    if (showVote) {
+      setShowVote(false);
+      setVoteButton('Open the vote form');
+    } else {
+      setShowVote(true);
+      setVoteButton('Close the vote form');
+    }
+  }
+
   const logout = () => {
     sessionStorage.removeItem('spotifyData');
   };
@@ -104,7 +116,7 @@ function Result(props) {
             <h2>Your Top artists all time:</h2>
             <DisplayGenre data={dataset.items} />
           </StyledDisplay>
-          <button onClick={() => setShowVote(!showVote)}></button>
+          <button onClick={handleVoteButton}>{voteButton}</button>
         </>
       ) : null}
       {showVote ? <UserVote {...userGenre} /> : null}
