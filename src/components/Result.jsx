@@ -5,6 +5,7 @@ import { genre } from '../datas/genre';
 import DisplayGenre from './DisplayGenre';
 import StyledResult from '../styles/StyledResult';
 import StyledDisplay from '../styles/StyledDisplay';
+import UserVote from './UserVote';
 var Spotify = require('spotify-web-api-js');
 
 var spotifyApi = new Spotify();
@@ -15,6 +16,8 @@ function Result(props) {
   const [userSign, setUserSign] = useState('');
   const [matchingSign, setMatchingSign] = useState('');
   const [matchingUnicode, setMatchingUnicode] = useState('');
+  const [userGenre, setUserGenre] = useState(null);
+  const [showVote, setShowVote] = useState(false);
 
   useEffect(() => {
     setToken(props.token);
@@ -32,6 +35,8 @@ function Result(props) {
         .then(function (data) {
           console.log(data);
           let userG = getUserGenre(data);
+          setUserGenre(userG);
+          console.log('userGenre', userG);
           let userCpt = getUserCompatibility(userG, genre);
           let matchSign = getUserSign(userCpt, userSign, sign);
           setMatchingSign(matchSign);
@@ -57,6 +62,7 @@ function Result(props) {
       if (sessionStorage.getItem('spotifyData')) {
         let data = JSON.parse(sessionStorage.getItem('spotifyData'));
         let userG = getUserGenre(data);
+        setUserGenre(userG);
         let userCpt = getUserCompatibility(userG, genre);
         let matchSign = getUserSign(userCpt, userSign, sign);
         setMatchingSign(matchSign);
@@ -87,20 +93,21 @@ function Result(props) {
           </select>
         </div>
         <input type="submit" value="Found your matching sign" onClick={getData} />
-        <a href="/" onClick={logout}>
-          {' '}
-          Logout{' '}
-        </a>
+        <a href="/" onClick={logout}>Logout</a>
       </StyledResult>
       {matchingSign && dataset ? (
-        <StyledDisplay>
-          <p>
-            Your matching sign is {matchingSign} {matchingUnicode}
-          </p>
-          <h2>Your Top artists all time:</h2>
-          <DisplayGenre data={dataset.items} />
-        </StyledDisplay>
+        <>
+          <StyledDisplay>
+            <p>
+              Your matching sign is {matchingSign} {matchingUnicode}
+            </p>
+            <h2>Your Top artists all time:</h2>
+            <DisplayGenre data={dataset.items} />
+          </StyledDisplay>
+          <button onClick={() => setShowVote(!showVote)}></button>
+        </>
       ) : null}
+      {showVote ? <UserVote {...userGenre} /> : null}
     </>
   );
 }
