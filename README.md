@@ -7,7 +7,7 @@ Build in ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat-sq
 ## Todo list 🌟
 
 - [x] Display the top artists all time of the user
-- [x] Redirect to the user page on Spotify
+- [x] Redirect to the artist page on Spotify
 - [ ] Choose between the top artists of last 4 weeks or last 6 months instead of all time
 - [ ] Let the user vote for the best matching sign / music genre (backend+db needed)
 
