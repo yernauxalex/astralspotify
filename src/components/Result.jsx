@@ -41,6 +41,7 @@ function Result(props) {
         setMatchingUnicode(sign.unicode);
         return sign.unicode;
       }
+      return null;
     });
   }
 
