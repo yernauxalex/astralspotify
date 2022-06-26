@@ -89,11 +89,11 @@ function Result(props) {
           </select>
         </div>
         <div className="container-select">
-          <label>Enter your time range</label>
+          <label>Time range</label>
           <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
-            <option value="long_term">Long Term</option>
-            <option value="medium_term">Medium Term</option>
-            <option value="short_term">Short Term</option>
+            <option value="long_term">All time</option>
+            <option value="medium_term">Last 6 months</option>
+            <option value="short_term">Last 4 weeks</option>
           </select>
         </div>
         <input type="submit" value="Found your matching sign" onClick={getData} />
