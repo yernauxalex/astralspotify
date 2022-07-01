@@ -5,6 +5,7 @@ import { genre } from '../datas/genre';
 import DisplayGenre from './DisplayGenre';
 import StyledResult from '../styles/StyledResult';
 import StyledDisplay from '../styles/StyledDisplay';
+import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
 
 var spotifyApi = new Spotify();
@@ -12,7 +13,7 @@ var spotifyApi = new Spotify();
 function Result(props) {
   const [token, setToken] = useState(null);
   const [dataset, setDataset] = useState(null);
-  const [userSign, setUserSign] = useState('');
+  const [userSign, setUserSign] = useState('aries');
   const [matchingSign, setMatchingSign] = useState('');
   const [matchingUnicode, setMatchingUnicode] = useState('');
   const [timeRange, setTimeRange] = useState('long_term');
@@ -104,13 +105,20 @@ function Result(props) {
         </a>
       </StyledResult>
       {matchingSign && dataset ? (
-        <StyledDisplay>
-          <p>
-            Your matching sign is {matchingSign} {matchingUnicode}
-          </p>
-          <h2>Your Top artists {timeRangeText}:</h2>
-          <DisplayGenre data={dataset.items} />
-        </StyledDisplay>
+        <>
+          <StyledDisplay>
+            <p>
+              Your matching sign is {matchingSign} {matchingUnicode}
+            </p>
+            <h2>Your Top artists {timeRangeText}:</h2>
+            <DisplayGenre data={dataset.items} />
+          </StyledDisplay>
+          {matchingSign && userSign ? (
+            <TwitterShareButton
+              url={'https://resonant-medovik-c1c915.netlify.app/'}
+              options={{ text: `Based on my Spotify top artist for me a ${userSign}, the perfect match is a ${matchingSign} via `, }}
+            />) : null}
+        </>
       ) : null}
     </>
   );
