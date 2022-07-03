@@ -105,20 +105,18 @@ function Result(props) {
         </a>
       </StyledResult>
       {matchingSign && dataset ? (
-        <>
-          <StyledDisplay>
-            <p>
-              Your matching sign is {matchingSign} {matchingUnicode}
-            </p>
-            <h2>Your Top artists {timeRangeText}:</h2>
-            <DisplayGenre data={dataset.items} />
-          </StyledDisplay>
+        <StyledDisplay>
+          <p>
+            Your matching sign is {matchingSign} {matchingUnicode}
+          </p>
+          <h2>Your Top artists {timeRangeText}:</h2>
+          <DisplayGenre data={dataset.items} />
           {matchingSign && userSign ? (
             <TwitterShareButton
               url={'https://resonant-medovik-c1c915.netlify.app/'}
-              options={{ text: `Based on my Spotify top artist for me a ${userSign}, the perfect match is a ${matchingSign} via `, }}
+              options={{ text: `Based on my Spotify top artist for me a ${userSign}, my perfect match is a ${matchingSign} via `, }}
             />) : null}
-        </>
+        </StyledDisplay>
       ) : null}
     </>
   );
