@@ -18,6 +18,7 @@ function Result(props) {
   const [matchingUnicode, setMatchingUnicode] = useState('');
   const [timeRange, setTimeRange] = useState('long_term');
   const [timeRangeText, setTimeRangeText] = useState('All time');
+  const [shareText, setShareText] = useState('');
 
   useEffect(() => {
     setToken(props.token);
@@ -33,6 +34,7 @@ function Result(props) {
     setDataset(data);
     sessionStorage.setItem(`spotifyData${timeRange}`, JSON.stringify(data));
     setTimeRangeText(timeRange === 'long_term' ? 'all time' : timeRange === 'medium_term' ? 'last 6 months' : 'last 4 weeks');
+    setShareText(`Based on my Spotify top artist for me a ${userSign}, my perfect match is a ${matchSign} via `);
   }
 
   function getUnicodeMatchingSign(matchingSign) {
@@ -104,18 +106,18 @@ function Result(props) {
           Logout{' '}
         </a>
       </StyledResult>
-      {matchingSign && dataset ? (
+      {matchingSign && dataset && shareText ? (
         <StyledDisplay>
           <p>
             Your matching sign is {matchingSign} {matchingUnicode}
           </p>
           <h2>Your Top artists {timeRangeText}:</h2>
           <DisplayGenre data={dataset.items} />
-          {matchingSign && userSign ? (
-            <TwitterShareButton
-              url={'https://resonant-medovik-c1c915.netlify.app/'}
-              options={{ text: `Based on my Spotify top artist for me a ${userSign}, my perfect match is a ${matchingSign} via `, }}
-            />) : null}
+          <TwitterShareButton
+            key={shareText}
+            url={'https://resonant-medovik-c1c915.netlify.app/'}
+            options={{ text: shareText }}
+          />
         </StyledDisplay>
       ) : null}
     </>
