@@ -11,7 +11,9 @@ Hosted with ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=
 - [x] Display the top artists all time of the user
 - [x] Redirect to the artist page on Spotify
 - [x] Choose between the top artists of last 4 weeks or last 6 months instead of all time
-- [ ] Share button as an image or as a tweet
+- [ ] Share button 
+  - [x] as a tweet
+  - [ ] as an image
 - [ ] Let the user vote for the best matching sign / music genre (backend+db needed)
 
 ## Contribution 🤝
