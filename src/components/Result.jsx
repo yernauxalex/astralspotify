@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
+import { Container, Col } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import DisplayGenre from './DisplayGenre';
-import StyledResult from '../styles/StyledResult';
+// import StyledResult from '../styles/StyledResult';
 import StyledDisplay from '../styles/StyledDisplay';
 import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
@@ -81,7 +85,37 @@ function Result(props) {
 
   return (
     <>
-      <StyledResult>
+      <Container className="mx-auto">
+        <Form>
+          <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
+            <Form.Label column md={2} xs="auto">Enter your sign</Form.Label>
+            <Col md={3} xs="auto">
+              <Form.Select value={userSign} onChange={(e) => setUserSign(e.target.value)} aria-label="enter your astro sign">
+                {sign.map(({ name, unicode }) => (
+                  <option key={name} value={name}>
+                    {name} {unicode}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupTimeRange">
+            <Form.Label column md={2} xs="auto">Time range</Form.Label>
+            <Col md={3} xs="auto">
+              <Form.Select value={timeRange} onChange={(e) => setTimeRange(e.target.value)} aria-label="select the time range">
+                <option value="long_term">All time</option>
+                <option value="medium_term">Last 6 months</option>
+                <option value="short_term">Last 4 weeks</option>
+              </Form.Select>
+            </Col>
+          </Form.Group>
+          <Form.Group className="d-flex justify-content-center" controlId="formGroupButton">
+            <Button variant="success" type="submit" className="w-50" onClick={getData}>Found your matching sign</Button>
+          </Form.Group>
+        </Form>
+
+      </Container>
+      {/* <StyledResult>
         <div className="container-select">
           <label>Enter your sign</label>
           <select value={userSign} onChange={(e) => setUserSign(e.target.value)}>
@@ -105,7 +139,7 @@ function Result(props) {
           {' '}
           Logout{' '}
         </a>
-      </StyledResult>
+      </StyledResult> */}
       {matchingSign && dataset && shareText ? (
         <StyledDisplay>
           <p>
@@ -118,6 +152,10 @@ function Result(props) {
             url={'https://resonant-medovik-c1c915.netlify.app/'}
             options={{ text: shareText }}
           />
+          <a href="/" onClick={logout}>
+            {' '}
+            Logout{' '}
+          </a>
         </StyledDisplay>
       ) : null}
     </>
