@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import DisplayGenre from './DisplayGenre';
 // import StyledResult from '../styles/StyledResult';
 import StyledDisplay from '../styles/StyledDisplay';
+import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
 
@@ -85,7 +86,7 @@ function Result(props) {
 
   return (
     <>
-      <Container className="mx-auto">
+      <Container className="mx-auto" style={{ fontSize: fonts.standard.form }}>
         <Form>
           <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
             <Form.Label column md={2} xs="auto">Enter your sign</Form.Label>
@@ -141,11 +142,19 @@ function Result(props) {
         </a>
       </StyledResult> */}
       {matchingSign && dataset && shareText ? (
-        <StyledDisplay>
-          <p>
+        <Container className="mt-5 mx-auto d-flex flex-column justify-content-center">
+          <p style={{ fontSize: fonts.standard.pResult }} className="d-flex justify-content-center">
             Your matching sign is {matchingSign} {matchingUnicode}
           </p>
-          <h2>Your Top artists {timeRangeText}:</h2>
+          <h2 style={{ fontSize: fonts.standard.pResult }} className="d-flex justify-content-center">Your Top artists {timeRangeText}:</h2>
+        </Container>
+      ) : null}
+      {matchingSign && dataset && shareText ? (
+        <StyledDisplay>
+          {/* <p>
+            Your matching sign is {matchingSign} {matchingUnicode}
+          </p>
+          <h2>Your Top artists {timeRangeText}:</h2> */}
           <DisplayGenre data={dataset.items} />
           <TwitterShareButton
             key={shareText}
