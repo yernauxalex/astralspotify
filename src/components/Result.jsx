@@ -155,7 +155,9 @@ function Result(props) {
             Your matching sign is {matchingSign} {matchingUnicode}
           </p>
           <h2>Your Top artists {timeRangeText}:</h2> */}
-          <DisplayGenre data={dataset.items} />
+          <Container className="mt-5 mx-auto d-flex flex-wrap justify-content-center align-items-start" >
+            <DisplayGenre data={dataset.items} />
+          </Container>
           <TwitterShareButton
             key={shareText}
             url={'https://resonant-medovik-c1c915.netlify.app/'}
