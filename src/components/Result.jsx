@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import DisplayGenre from './DisplayGenre';
 // import StyledResult from '../styles/StyledResult';
-import StyledDisplay from '../styles/StyledDisplay';
+// import StyledDisplay from '../styles/StyledDisplay';
 import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
@@ -114,33 +114,7 @@ function Result(props) {
             <Button variant="success" type="submit" className="w-50" onClick={getData}>Found your matching sign</Button>
           </Form.Group>
         </Form>
-
       </Container>
-      {/* <StyledResult>
-        <div className="container-select">
-          <label>Enter your sign</label>
-          <select value={userSign} onChange={(e) => setUserSign(e.target.value)}>
-            {sign.map(({ name, unicode }) => (
-              <option key={name} value={name}>
-                {name} {unicode}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="container-select">
-          <label>Time range</label>
-          <select value={timeRange} onChange={(e) => setTimeRange(e.target.value)}>
-            <option value="long_term">All time</option>
-            <option value="medium_term">Last 6 months</option>
-            <option value="short_term">Last 4 weeks</option>
-          </select>
-        </div>
-        <input type="submit" value="Found your matching sign" onClick={getData} />
-        <a href="/" onClick={logout}>
-          {' '}
-          Logout{' '}
-        </a>
-      </StyledResult> */}
       {matchingSign && dataset && shareText ? (
         <Container className="mt-5 mx-auto d-flex flex-column justify-content-center">
           <p style={{ fontSize: fonts.standard.pResult }} className="d-flex justify-content-center">
@@ -150,12 +124,8 @@ function Result(props) {
         </Container>
       ) : null}
       {matchingSign && dataset && shareText ? (
-        <StyledDisplay>
-          {/* <p>
-            Your matching sign is {matchingSign} {matchingUnicode}
-          </p>
-          <h2>Your Top artists {timeRangeText}:</h2> */}
-          <Container className="mt-5 mx-auto d-flex flex-wrap justify-content-center align-items-start" >
+        <>
+          <Container className="mt-5 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayGenre data={dataset.items} />
           </Container>
           <TwitterShareButton
@@ -167,8 +137,9 @@ function Result(props) {
             {' '}
             Logout{' '}
           </a>
-        </StyledDisplay>
-      ) : null}
+        </>
+      ) : null
+      }
     </>
   );
 }
