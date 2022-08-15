@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
-import { Container, Col } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
+import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
 import DisplayGenre from './DisplayGenre';
-// import StyledResult from '../styles/StyledResult';
-// import StyledDisplay from '../styles/StyledDisplay';
 import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
@@ -128,15 +123,17 @@ function Result(props) {
           <Container className="mt-5 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayGenre data={dataset.items} />
           </Container>
-          <TwitterShareButton
-            key={shareText}
-            url={'https://resonant-medovik-c1c915.netlify.app/'}
-            options={{ text: shareText }}
-          />
-          <a href="/" onClick={logout}>
-            {' '}
-            Logout{' '}
-          </a>
+          <Stack className="mt-1 d-flex flex-wrap justify-content-center align-items-center" >
+            <TwitterShareButton
+              key={shareText}
+              url={'https://resonant-medovik-c1c915.netlify.app/'}
+              options={{ text: shareText }}
+            />
+            <a href="/" onClick={logout}>
+              {' '}
+              Logout{' '}
+            </a>
+          </Stack>
         </>
       ) : null
       }
