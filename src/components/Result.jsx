@@ -75,10 +75,6 @@ function Result(props) {
     }
   };
 
-  const logout = () => {
-    sessionStorage.clear();
-  };
-
   return (
     <>
       <Container className="mx-auto" style={{ fontSize: fonts.standard.form }}>
@@ -129,10 +125,6 @@ function Result(props) {
               url={'https://resonant-medovik-c1c915.netlify.app/'}
               options={{ text: shareText }}
             />
-            <a href="/" onClick={logout}>
-              {' '}
-              Logout{' '}
-            </a>
           </Stack>
         </>
       ) : null
