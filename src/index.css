@@ -2,6 +2,7 @@
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 100%;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,18 +15,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-}
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-@media (max-width: 280px) {
-  h1 {
-    font-size: 1.5rem;
-  }
 }
