@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
 import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
-import DisplayGenre from './DisplayGenre';
+import DisplayArtistCard from './DisplayArtistCard';
+import DisplayGenreModal from './DisplayGenreModal';
 import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 var Spotify = require('spotify-web-api-js');
@@ -19,6 +21,18 @@ function Result(props) {
   const [timeRange, setTimeRange] = useState('long_term');
   const [timeRangeText, setTimeRangeText] = useState('All time');
   const [shareText, setShareText] = useState('');
+
+  // Gestion du modal 
+  const [show, setShow] = useState(false);
+  const [artistData, setArtistData] = useState(null);
+  const toggleModal = () => setShow(prevShow => !prevShow)
+
+  function getDataModal(artist_id) {
+    const newData = [...dataset.items]
+    const artistData = newData.filter((artist) => artist.id === artist_id)
+    console.log('artistData', artistData);
+    setArtistData(artistData)
+  }
 
   useEffect(() => {
     setToken(props.token);
@@ -77,7 +91,7 @@ function Result(props) {
 
   return (
     <>
-      <Container className="mx-auto" style={{ fontSize: fonts.standard.form }}>
+      <Container className="mt-5">
         <Form>
           <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
             <Form.Label column md={2} xs="auto">Enter your sign</Form.Label>
@@ -116,8 +130,9 @@ function Result(props) {
       ) : null}
       {matchingSign && dataset && shareText ? (
         <>
-          <Container className="mt-5 d-flex flex-wrap justify-content-center align-items-start" >
-            <DisplayGenre data={dataset.items} />
+          <Container className="mt-5 px-0 d-flex flex-wrap justify-content-center align-items-start" >
+            <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
+            <DisplayGenreModal data={artistData} show={show} toggle={toggleModal} />
           </Container>
           <Stack className="mt-1 d-flex flex-wrap justify-content-center align-items-center" >
             <TwitterShareButton
