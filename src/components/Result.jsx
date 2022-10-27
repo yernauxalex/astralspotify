@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
+import { getUserGenre, getUserCompatibility, getUserSign, getUserCoef, getUserGenreValue } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
 import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
@@ -24,7 +23,7 @@ function Result(props) {
 
   // Gestion du modal 
   const [show, setShow] = useState(false);
-  const [artistData, setArtistData] = useState(null);
+  const [artistData, setArtistData] = useState([]);
   const toggleModal = () => setShow(prevShow => !prevShow)
 
   function getDataModal(artist_id) {
@@ -41,12 +40,14 @@ function Result(props) {
   function processData(data) {
     console.log(data);
     let userG = getUserGenre(data);
-    let userCpt = getUserCompatibility(userG, genre);
+    let userCoef = getUserCoef(userSign, sign)
+    let userGenreValued = getUserGenreValue(userG, userCoef, genre);
+    let userCpt = getUserCompatibility(userGenreValued);
     let matchSign = getUserSign(userCpt, userSign, sign);
     setMatchingSign(matchSign);
     getUnicodeMatchingSign(matchSign);
     setDataset(data);
-    sessionStorage.setItem(`spotifyData${timeRange}`, JSON.stringify(data));
+    sessionStorage.setItem(`spotifyData_${timeRange}`, JSON.stringify(data));
     setTimeRangeText(timeRange === 'long_term' ? 'all time' : timeRange === 'medium_term' ? 'last 6 months' : 'last 4 weeks');
     setShareText(`Based on my Spotify top artist for me a ${userSign}, my perfect match is a ${matchSign} via `);
   }
@@ -130,7 +131,7 @@ function Result(props) {
       ) : null}
       {matchingSign && dataset && shareText ? (
         <>
-          <Container className="mt-5 px-0 d-flex flex-wrap justify-content-center align-items-start" >
+          <Container fluid className="mt-5 mx-0 px-0 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
             <DisplayGenreModal data={artistData} show={show} toggle={toggleModal} />
           </Container>
