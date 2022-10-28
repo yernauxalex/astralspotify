@@ -13,7 +13,7 @@ function Header() {
     return (
         <Navbar expand={false} bg="light" >
             <Container fluid>
-                <Navbar.Brand href="#home">Astro compatibility for Spotify</Navbar.Brand>
+                <Navbar.Brand href="#home" style={{ fontSize: '1.3rem' }}>Astro compatibility for Spotify</Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
                 <Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end" show={show} onHide={handleClose}>
                     <Offcanvas.Header closeButton>
@@ -23,9 +23,9 @@ function Header() {
                         <Nav className="justify-content-start flex-grow-1 pe-3">
                             {/* <Nav.Link  href="#action1">Login</Nav.Link>
                             <Nav.Link  href="#action2">Vote</Nav.Link> */}
-                            {sessionStorage.getItem('spotifyDatalong_term') ||
-                                sessionStorage.getItem('spotifyDatamedium_term') ||
-                                sessionStorage.getItem('spotifyDatashort_term') ? (
+                            {sessionStorage.getItem('spotifyData_long_term') ||
+                                sessionStorage.getItem('spotifyData_medium_term') ||
+                                sessionStorage.getItem('spotifyData_short_term') ? (
                                 <Nav.Link href="/" onClick={logout} >Logout</Nav.Link>
                             ) : null}
 
@@ -56,12 +56,6 @@ function Header() {
             </Container>
 
         </Navbar >
-
-        // <Navbar className="d-flex justify-content-center">
-        //     <Navbar.Brand href="#home" style={{ fontSize: fonts.standard.h1 }}>
-        //         Astro compatibility for Spotify
-        //     </Navbar.Brand>
-        // </Navbar>
     )
 }
 export default Header
