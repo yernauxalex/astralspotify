@@ -23,13 +23,13 @@ function Result(props) {
 
   // Gestion du modal 
   const [show, setShow] = useState(false);
-  const [artistData, setArtistData] = useState([]);
+  const [artistData, setArtistData] = useState(null);
+  const [userGenreValued, setUserGenreValued] = useState([]);
   const toggleModal = () => setShow(prevShow => !prevShow)
 
   function getDataModal(artist_id) {
     const newData = [...dataset.items]
     const artistData = newData.filter((artist) => artist.id === artist_id)
-    console.log('artistData', artistData);
     setArtistData(artistData)
   }
 
@@ -42,6 +42,7 @@ function Result(props) {
     let userG = getUserGenre(data);
     let userCoef = getUserCoef(userSign, sign)
     let userGenreValued = getUserGenreValue(userG, userCoef, genre);
+    setUserGenreValued(userGenreValued);
     let userCpt = getUserCompatibility(userGenreValued);
     let matchSign = getUserSign(userCpt, userSign, sign);
     setMatchingSign(matchSign);
@@ -133,7 +134,7 @@ function Result(props) {
         <>
           <Container fluid className="mt-5 mx-0 px-0 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
-            <DisplayGenreModal data={artistData} show={show} toggle={toggleModal} />
+            {artistData ? <DisplayGenreModal artistData={artistData} userGenreValued={userGenreValued} show={show} toggle={toggleModal} /> : null}
           </Container>
           <Stack className="mt-1 d-flex flex-wrap justify-content-center align-items-center" >
             <TwitterShareButton

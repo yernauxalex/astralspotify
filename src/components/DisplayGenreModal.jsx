@@ -1,36 +1,49 @@
-import React from "react";
-import { Modal, Card, ListGroup, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Modal, Button, ProgressBar } from "react-bootstrap";
 
 function DisplayGenreModal(props) {
-    const data = props.data;
-    console.log(data);
+    const data = props.artistData;
+    const userGenreValued = props.userGenreValued;
+    const [parsedData, setParsedData] = useState([]);
+
+    // function who only keep the genre that are in the data and in the userGenreValued
+    useEffect(() => {
+        setParsedData([])
+        userGenreValued.map(({ name, value }) => {
+            if (data[0].genres.includes(name)) {
+                setParsedData(prev => [...prev, { name, value }])
+            }
+        })
+    }, [props])
+
     return (
-        <Modal show={props.show} onHide={props.toggle}>
-            <Modal.Header closeButton>
-                <Modal.Title>Genres</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <>{data.map(({ name, external_urls, genres, images }) => (
-                    // eslint-disable-next-line react/jsx-key
-                    <Card className="m-2 card-custom">
-                        <a href={external_urls.spotify} target="_blank" rel="noreferrer">
-                            <Card.Img variant="top" src={images[1].url} className="card-pic" /> {/* Format des img a revoir */}
-                        </a>
-                        <Card.Body>
-                            <Card.Title>{name}</Card.Title>
-                            <ListGroup variant="flush" as='ul'>
-                                {genres.map((name) => (
-                                    <ListGroup.Item as='li' key={name}>{name}</ListGroup.Item>
+        <Modal show={props.show} onHide={props.toggle} key={data.id} centered>
+            {data.map(({ name, external_urls }) => (
+                <>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {parsedData.length === 0 ? (
+                            <p>Sorry, we do not have enough data to display affinity</p>
+                        ) : (
+                            <ul className="list-custom">
+                                {parsedData.map(({ name, value }, index) => (
+                                    <li key={index}>
+                                        {name}
+                                        <ProgressBar now={value} label={`${value}%`} />
+                                    </li>
                                 ))}
-                            </ListGroup>
-                            <Button variant="success" href={external_urls.spotify} target="_blank" rel="noreferrer">
-                                Go to Spotify
-                            </Button>
-                        </Card.Body>
-                    </Card>
-                ))}
+                            </ul>
+                        )}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" href={external_urls.spotify} target="_blank" rel="noreferrer">
+                            Go to Spotify
+                        </Button>
+                    </Modal.Footer>
                 </>
-            </Modal.Body>
+            ))}
         </Modal>
     );
 }
