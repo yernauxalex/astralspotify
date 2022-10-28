@@ -15,7 +15,7 @@ function Header() {
             <Container fluid>
                 <Navbar.Brand href="#home" style={{ fontSize: '1.3rem' }}>Astro compatibility for Spotify</Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
-                <Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end" show={show} onHide={handleClose}>
+                <Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end" show={show} onHide={handleClose} restoreFocus={false}>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title id="offcanvasNavbarLabel">AstroSpotify</Offcanvas.Title>
                     </Offcanvas.Header>
@@ -29,6 +29,11 @@ function Header() {
                                 <Nav.Link href="/" onClick={logout} >Logout</Nav.Link>
                             ) : null}
 
+                            <Nav.Link href="#about" onClick={event => {
+                                event.preventDefault();
+                                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                                handleClose();
+                            }}>About</Nav.Link>
                         </Nav>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
 
