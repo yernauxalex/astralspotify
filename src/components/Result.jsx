@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { getUserGenre, getUserCompatibility, getUserSign } from '../utils/process';
+import { getUserGenre, getUserCompatibility, getUserSign, getUserCoef, getUserGenreValue } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
-import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
-import DisplayGenre from './DisplayGenre';
+import { Container, Col, Form, Button, Row } from 'react-bootstrap';
+import DisplayArtistCard from './DisplayArtistCard';
+import DisplayGenreModal from './DisplayGenreModal';
 import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 import UserVote from './UserVote';
@@ -24,6 +25,18 @@ function Result(props) {
   const [timeRangeText, setTimeRangeText] = useState('All time');
   const [shareText, setShareText] = useState('');
 
+  // Gestion du modal 
+  const [show, setShow] = useState(false);
+  const [artistData, setArtistData] = useState(null);
+  const [userGenreValued, setUserGenreValued] = useState([]);
+  const toggleModal = () => setShow(prevShow => !prevShow)
+
+  function getDataModal(artist_id) {
+    const newData = [...dataset.items]
+    const artistData = newData.filter((artist) => artist.id === artist_id)
+    setArtistData(artistData)
+  }
+
   useEffect(() => {
     setToken(props.token);
   }, [props.token, token]);
@@ -32,12 +45,15 @@ function Result(props) {
     console.log(data);
     let userG = getUserGenre(data);
     setUserGenre(userG);
-    let userCpt = getUserCompatibility(userG, genre);
+    let userCoef = getUserCoef(userSign, sign)
+    let userGenreValued = getUserGenreValue(userG, userCoef, genre);
+    setUserGenreValued(userGenreValued);
+    let userCpt = getUserCompatibility(userGenreValued);
     let matchSign = getUserSign(userCpt, userSign, sign);
     setMatchingSign(matchSign);
     getUnicodeMatchingSign(matchSign);
     setDataset(data);
-    sessionStorage.setItem(`spotifyData${timeRange}`, JSON.stringify(data));
+    sessionStorage.setItem(`spotifyData_${timeRange}`, JSON.stringify(data));
     setTimeRangeText(timeRange === 'long_term' ? 'all time' : timeRange === 'medium_term' ? 'last 6 months' : 'last 4 weeks');
     setShareText(`Based on my Spotify top artist for me a ${userSign}, my perfect match is a ${matchSign} via `);
   }
@@ -91,13 +107,9 @@ function Result(props) {
     }
   }
 
-  const logout = () => {
-    sessionStorage.clear();
-  };
-
   return (
     <>
-      <Container className="mx-auto" style={{ fontSize: fonts.standard.form }}>
+      <Container className="mt-5">
         <Form>
           <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
             <Form.Label column md={2} xs="auto">Enter your sign</Form.Label>
@@ -136,21 +148,22 @@ function Result(props) {
       ) : null}
       {matchingSign && dataset && shareText ? (
         <>
-          <Container className="mt-5 d-flex flex-wrap justify-content-center align-items-start" >
-            <DisplayGenre data={dataset.items} />
+          <Container fluid className="mt-5 mx-0 px-0 d-flex flex-wrap justify-content-center align-items-start" >
+            <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
+            {artistData ? <DisplayGenreModal artistData={artistData} userGenreValued={userGenreValued} show={show} toggle={toggleModal} /> : null}
           </Container>
           <Button variant="success" type="submit" className="w-50" onClick={handleVoteButton}>{voteButton}</Button>
-          <Stack className="mt-1 d-flex flex-wrap justify-content-center align-items-center" >
+          <Container className="mt-3 d-flex justify-content-center" >
             <TwitterShareButton
               key={shareText}
               url={'https://resonant-medovik-c1c915.netlify.app/'}
-              options={{ text: shareText }}
+              options={{
+                text: shareText,
+                via: 'AstroSpotify',
+                size: 'large'
+              }}
             />
-            <a href="/" onClick={logout}>
-              {' '}
-              Logout{' '}
-            </a>
-          </Stack>
+          </Container>
         </>
       ) : null
       }
