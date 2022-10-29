@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import SpotifyIcon from '../assets/Spotify_Icon_RGB_Green.png';
 
 function Header() {
     const [show, setShow] = useState(false);
@@ -47,6 +48,11 @@ function Header() {
                                     <span role="img" aria-label="linkedin">
                                         💻
                                     </span></a>
+                            </p>
+                            <p>If by any chance you want to discover my weird taste in music its here:{" "}
+                                <a href="https://open.spotify.com/user/1135271063?si=10914ce5af6249c5" target="_blank" rel="noreferrer" alt="Link to my personnal Spotify profile">
+                                    <img src={SpotifyIcon} alt="spotify logo" className="spotify-logo" width="22px" height="22px" />
+                                </a>
                             </p>
                             <p>For any suggestions please DM me on
                                 <a href="https://twitter.com/Alexys_dev" target="_blank" rel="noreferrer">
