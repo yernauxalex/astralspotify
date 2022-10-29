@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getUserGenre, getUserCompatibility, getUserSign, getUserCoef, getUserGenreValue } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
-import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
+import { Container, Col, Form, Button, Row } from 'react-bootstrap';
 import DisplayArtistCard from './DisplayArtistCard';
 import DisplayGenreModal from './DisplayGenreModal';
 import fonts from '../styles/fonts';
@@ -136,13 +136,17 @@ function Result(props) {
             <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
             {artistData ? <DisplayGenreModal artistData={artistData} userGenreValued={userGenreValued} show={show} toggle={toggleModal} /> : null}
           </Container>
-          <Stack className="mt-1 d-flex flex-wrap justify-content-center align-items-center" >
+          <Container className="mt-3 d-flex justify-content-center" >
             <TwitterShareButton
               key={shareText}
               url={'https://resonant-medovik-c1c915.netlify.app/'}
-              options={{ text: shareText }}
+              options={{
+                text: shareText,
+                via: 'AstroSpotify',
+                size: 'large'
+              }}
             />
-          </Stack>
+          </Container>
         </>
       ) : null
       }

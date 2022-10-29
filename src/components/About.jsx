@@ -3,8 +3,8 @@ import { Container, Accordion } from "react-bootstrap";
 
 function About() {
     return (
-        <Container fluid className="my-5" id="about">
-            <Accordion>
+        <Container className="my-5 custom-about" id="about">
+            <Accordion >
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>How does it work?</Accordion.Header>
                     <Accordion.Body>

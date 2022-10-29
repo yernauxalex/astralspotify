@@ -26,6 +26,10 @@
   padding: 0.4rem 0
 }
 
+.custom-about {
+  max-width: 800px;
+}
+
 @media screen and (max-width: 768px) {
   .card-custom {
     width: 9rem;
