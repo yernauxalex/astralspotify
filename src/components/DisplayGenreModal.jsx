@@ -9,12 +9,12 @@ function DisplayGenreModal(props) {
     // function who only keep the genre that are in the data and in the userGenreValued
     useEffect(() => {
         setParsedData([])
-        userGenreValued.map(({ name, value }) => {
+        userGenreValued.forEach(({ name, value }) => {
             if (data[0].genres.includes(name)) {
                 setParsedData(prev => [...prev, { name, value }])
             }
         })
-    }, [props])
+    }, [data, userGenreValued])
 
     return (
         <Modal show={props.show} onHide={props.toggle} key={data.id} centered>

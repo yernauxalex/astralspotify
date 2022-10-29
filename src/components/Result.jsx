@@ -142,7 +142,6 @@ function Result(props) {
               url={'https://resonant-medovik-c1c915.netlify.app/'}
               options={{
                 text: shareText,
-                via: 'AstroSpotify',
                 size: 'large'
               }}
             />
