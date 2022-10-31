@@ -15,6 +15,7 @@ Hosted with ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=
   - [x] as a tweet
   - [ ] as an image
 - [ ] Let the user vote for the best matching sign / music genre (backend+db needed)
+- [x] Responsive and mobile friendly
 
 ## Contribution 🤝
 
