@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getUserGenre, getUserCompatibility, getUserSign, getUserCoef, getUserGenreValue } from '../utils/process';
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
-import { Container, Col, Form, Button, Row } from 'react-bootstrap';
+import { Container, Col, Form, Button, Row, Stack } from 'react-bootstrap';
 import DisplayArtistCard from './DisplayArtistCard';
 import DisplayGenreModal from './DisplayGenreModal';
 import fonts from '../styles/fonts';
 import { TwitterShareButton } from 'react-twitter-embed';
 import UserVote from './UserVote';
+import DisplayVoteModal from './DisplayVoteModal';
 var Spotify = require('spotify-web-api-js');
 
 var spotifyApi = new Spotify();
@@ -25,7 +26,7 @@ function Result(props) {
   const [timeRangeText, setTimeRangeText] = useState('All time');
   const [shareText, setShareText] = useState('');
 
-  // Gestion du modal 
+  // Gestion du modal: artist genre
   const [show, setShow] = useState(false);
   const [artistData, setArtistData] = useState(null);
   const [userGenreValued, setUserGenreValued] = useState([]);
@@ -36,6 +37,10 @@ function Result(props) {
     const artistData = newData.filter((artist) => artist.id === artist_id)
     setArtistData(artistData)
   }
+
+  // Gestion du modal: vote
+  const [showVoteModal, setShowVoteModal] = useState(false);
+  const toggleVoteModal = () => setShowVoteModal(prevShow => !prevShow)
 
   useEffect(() => {
     setToken(props.token);
@@ -151,9 +156,11 @@ function Result(props) {
           <Container fluid className="mt-5 mx-0 px-0 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
             {artistData ? <DisplayGenreModal artistData={artistData} userGenreValued={userGenreValued} show={show} toggle={toggleModal} /> : null}
+            {userGenre ? <DisplayVoteModal userGenre={userGenre} handleVoteButton={handleVoteButton} show={showVoteModal} toggle={toggleVoteModal} /> : null}
           </Container>
-          <Button variant="success" type="submit" className="w-50" onClick={handleVoteButton}>{voteButton}</Button>
-          <Container className="mt-3 d-flex justify-content-center" >
+          <Stack gap={2} className="mt-3 mx-auto" style={{ textAlign: 'center' }}>
+            <Button variant="success" className="mt-1" onClick={toggleVoteModal}>Rate the affinity</Button>
+            <Button variant="success" type="submit" onClick={handleVoteButton}>{voteButton}</Button>
             <TwitterShareButton
               key={shareText}
               url={'https://resonant-medovik-c1c915.netlify.app/'}
@@ -163,7 +170,7 @@ function Result(props) {
                 size: 'large'
               }}
             />
-          </Container>
+          </Stack>
         </>
       ) : null
       }
