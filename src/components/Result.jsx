@@ -156,7 +156,7 @@ function Result(props) {
           <Container fluid className="mt-5 mx-0 px-0 d-flex flex-wrap justify-content-center align-items-start" >
             <DisplayArtistCard data={dataset.items} toggle={toggleModal} fc={getDataModal} />
             {artistData ? <DisplayGenreModal artistData={artistData} userGenreValued={userGenreValued} show={show} toggle={toggleModal} /> : null}
-            {userGenre ? <DisplayVoteModal userGenre={userGenre} handleVoteButton={handleVoteButton} show={showVoteModal} toggle={toggleVoteModal} /> : null}
+            {userGenre ? <DisplayVoteModal userGenre={userGenre} userSign={userSign} handleVoteButton={handleVoteButton} show={showVoteModal} toggle={toggleVoteModal} /> : null}
           </Container>
           <Stack gap={2} className="mt-3 mx-auto" style={{ textAlign: 'center' }}>
             <Button variant="success" className="mt-1" onClick={toggleVoteModal}>Rate the affinity</Button>
