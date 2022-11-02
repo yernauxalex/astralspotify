@@ -15,6 +15,8 @@ Hosted with ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=
   - [x] as a tweet
   - [ ] as an image
 - [ ] Let the user vote for the best matching sign / music genre (backend+db needed)
+  - [ ] Simple vote: user can only rate its own top music genres for its own sign
+  - [ ] Extented vote: user can rate every music genre for every sign
 - [x] Responsive and mobile friendly
 
 ## Contribution 🤝
