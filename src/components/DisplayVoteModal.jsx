@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Modal, Form, Row, Col, Button } from "react-bootstrap";
 
+// TODO: empty formData 
+// TODO: add a timer to the vote
 function DisplayVoteModal(props) {
     const userGenre = props.userGenre;
     const userSign = props.userSign;
@@ -18,7 +20,8 @@ function DisplayVoteModal(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        props.toggle()
+        props.handleVoteButton(formData)
     }
     return (
         <Modal show={props.show} onHide={props.toggle} centered>

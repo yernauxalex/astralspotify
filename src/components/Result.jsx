@@ -101,15 +101,14 @@ function Result(props) {
     }
   };
 
-  const handleVoteButton = (e) => {
+  const handleVoteButton = (userVoteData) => {
+    // TODO: call to api to save user vote
+    console.log(userVoteData);
+  }
+  const handleVoteButtonOld = (e) => {
     e.preventDefault();
-    if (showVote) {
-      setShowVote(false);
-      setVoteButton('Open the vote form');
-    } else {
-      setShowVote(true);
-      setVoteButton('Close the vote form');
-    }
+    setShowVote(!showVote);
+    setVoteButton(showVote ? 'Open the vote form' : 'Close the vote form');
   }
 
   return (
@@ -160,7 +159,7 @@ function Result(props) {
           </Container>
           <Stack gap={2} className="mt-3 mx-auto" style={{ textAlign: 'center' }}>
             <Button variant="success" className="mt-1" onClick={toggleVoteModal}>Rate the affinity</Button>
-            <Button variant="success" type="submit" onClick={handleVoteButton}>{voteButton}</Button>
+            <Button variant="success" type="submit" onClick={handleVoteButtonOld}>{voteButton}</Button>
             <TwitterShareButton
               key={shareText}
               url={'https://resonant-medovik-c1c915.netlify.app/'}
