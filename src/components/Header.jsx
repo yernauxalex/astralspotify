@@ -14,7 +14,7 @@ function Header() {
     return (
         <Navbar expand={false} bg="light" >
             <Container fluid>
-                <Navbar.Brand href="#home" style={{ fontSize: '1.3rem' }}>Astro compatibility for Spotify</Navbar.Brand>
+                <Navbar.Brand href="/home" style={{ fontSize: '1.3rem' }}>Astro compatibility for Spotify</Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
                 <Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end" show={show} onHide={handleClose} restoreFocus={false}>
                     <Offcanvas.Header closeButton>
