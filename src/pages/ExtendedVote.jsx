@@ -5,16 +5,31 @@ import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
 
 
+
 function ExtendedVote() {
     const [selectedSign, setSelectedSign] = useState('aries');
     const [selectedGenre, setSelectedGenre] = useState('rock');
     const [formData, setFormData] = useState([{ sign: 'sign', genre: 'genre', value: 0 }]);
+
+    // Custom sort for array of objects
+    function dynamicSort(property) {
+        var sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a, b) {
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
 
     // add selectedSign and selectedGenre to formData
     const addInput = (e) => {
         e.preventDefault();
         const newFormData = [...formData];
         newFormData.push({ sign: selectedSign, genre: selectedGenre, value: 0 });
+        newFormData.sort(dynamicSort('sign'));
         setFormData(newFormData);
     }
 
@@ -41,8 +56,8 @@ function ExtendedVote() {
                     <Form.Label column md={2} xs="auto">Enter your sign</Form.Label>
                     <Col md={3} xs="auto">
                         <Form.Select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)} aria-label="enter your astro sign">
-                            {genre.map(({ name }) => (
-                                <option key={name} value={name}>
+                            {genre.map(({ name }, index) => (
+                                <option key={index} value={name}>
                                     {name}
                                 </option>
                             ))}
@@ -52,7 +67,6 @@ function ExtendedVote() {
                 <Form.Group className="d-flex justify-content-center" controlId="formGroupButton">
                     <Button variant="success" type="submit" className="w-50" onClick={addInput}>Found your matching sign</Button>
                 </Form.Group>
-
             </Form>
             <Form as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
                 {formData.map((data, index) => (
