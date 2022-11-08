@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { Form, Row, Index, Col, Button } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { sign } from '../datas/sign';
 import { genre } from '../datas/genre';
 
@@ -9,30 +8,27 @@ import { genre } from '../datas/genre';
 function ExtendedVote() {
     const [selectedSign, setSelectedSign] = useState('aries');
     const [selectedGenre, setSelectedGenre] = useState('rock');
-    const [formData, setFormData] = useState([{ sign: 'sign', genre: 'genre', value: 0 }]);
-
-    // Custom sort for array of objects
-    function dynamicSort(property) {
-        var sortOrder = 1;
-        if (property[0] === "-") {
-            sortOrder = -1;
-            property = property.substr(1);
-        }
-        return function (a, b) {
-            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-            return result * sortOrder;
-        }
-    }
+    const [formData, setFormData] = useState([]);
 
     // add selectedSign and selectedGenre to formData
     const addInput = (e) => {
         e.preventDefault();
         const newFormData = [...formData];
-        newFormData.push({ sign: selectedSign, genre: selectedGenre, value: 0 });
-        newFormData.sort(dynamicSort('sign'));
-        setFormData(newFormData);
+        const signIndex = newFormData.findIndex((item) => item.sign === selectedSign);
+        if (signIndex !== -1) {
+            const genreIndex = newFormData[signIndex].vote.findIndex((item) => item.genre === selectedGenre);
+            if (genreIndex !== -1) {
+                alert('Selection already in the list');
+            } else {
+                newFormData[signIndex].vote.push({ genre: selectedGenre, value: 0 });
+                setFormData(newFormData);
+            }
+        } else {
+            console.log('index', signIndex);
+            newFormData.push({ sign: selectedSign, vote: [{ genre: selectedGenre, value: 0 }] });
+            setFormData(newFormData);
+        }
     }
-
 
     return (
         <>
@@ -69,27 +65,29 @@ function ExtendedVote() {
                 </Form.Group>
             </Form>
             <Form as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign">
-                {formData.map((data, index) => (
+                {formData.map((data, indexData) => (
                     <>
                         <Form.Label column md={2} xs="auto">{data.sign}</Form.Label>
-                        <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign" key={index}>
-                            <Form.Label column sm="3">
-                                {data.genre}
-                            </Form.Label>
-                            <Col md={3} xs="auto">
-                                <Form.Range
-                                    value={data.value}
-                                    onChange={(e) => {
-                                        const newFormData = [...formData];
-                                        newFormData[index].value = e.target.value;
-                                        setFormData(newFormData);
-                                    }}
-                                />
-                            </Col>
-                            <Col md={1} xs="auto">
-                                <Form.Control value={data.value} />
-                            </Col>
-                        </Form.Group>
+                        {data.vote.map((vote, index) => (
+                            <Form.Group as={Row} className="mb-3 d-flex justify-content-center" controlId="formGroupSign" key={index}>
+                                <Form.Label column sm="3">
+                                    {vote.genre}
+                                </Form.Label>
+                                <Col md={3} xs="auto">
+                                    <Form.Range
+                                        value={vote.value}
+                                        onChange={(e) => {
+                                            const newFormData = [...formData];
+                                            newFormData[indexData].vote[index].value = e.target.value;
+                                            setFormData(newFormData);
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={1} xs="auto">
+                                    <Form.Control value={vote.value} />
+                                </Col>
+                            </Form.Group>
+                        ))}
                     </>
                 ))}
             </Form>
