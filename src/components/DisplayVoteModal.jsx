@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Modal, Form, Row, Col, Button } from "react-bootstrap";
@@ -8,14 +7,14 @@ import { Modal, Form, Row, Col, Button } from "react-bootstrap";
 function DisplayVoteModal(props) {
     const userGenre = props.userGenre;
     const userSign = props.userSign;
-    const [formData, setFormData] = useState([{ sign: '', genre: '', value: 0 }]);
+    const [formData, setFormData] = useState({ sign: '', vote: [{ genre: '', value: 0 }] });
 
     //useEffect to update the formData state with the userGenre props with default value 0, and the userSign props
     useEffect(() => {
         const newFormData = userGenre.map((genre) => {
-            return { sign: userSign, genre: genre, value: 0 }
+            return { genre: genre, value: 0 }
         });
-        setFormData(newFormData);
+        setFormData({ sign: userSign, vote: newFormData });
     }, [userGenre, userSign]);
 
     const handleSubmit = (e) => {
@@ -30,7 +29,7 @@ function DisplayVoteModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    {formData.map((data, index) => (
+                    {formData.vote.map((data, index) => (
                         <Form.Group as={Row} key={index}>
                             <Form.Label column sm="3">
                                 {data.genre}
@@ -39,9 +38,9 @@ function DisplayVoteModal(props) {
                                 <Form.Range
                                     value={data.value}
                                     onChange={(e) => {
-                                        const newFormData = [...formData];
+                                        const newFormData = [...formData.vote];
                                         newFormData[index].value = e.target.value;
-                                        setFormData(newFormData);
+                                        setFormData({ sign: userSign, vote: newFormData });
                                     }}
                                 />
                             </Col>
