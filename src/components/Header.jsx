@@ -29,7 +29,7 @@ function Header() {
                                 sessionStorage.getItem('spotifyData_short_term') ? (
                                 <Nav.Link href="/" onClick={logout} >Logout</Nav.Link>
                             ) : null}
-
+                            <Nav.Link href="/vote">Vote</Nav.Link>
                             <Nav.Link href="#about" onClick={event => {
                                 event.preventDefault();
                                 document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
