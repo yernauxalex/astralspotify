@@ -30,6 +30,14 @@
   max-width: 800px;
 }
 
+.custom-selection {
+  text-align: center;
+  width: fit-content;
+  min-width: 50vw;
+  border: 0.1px solid rgba(0, 0, 0, 0.175);
+  border-radius: 20px;
+}
+
 @media screen and (max-width: 768px) {
   .card-custom {
     width: 9rem;
