@@ -36,12 +36,17 @@ function DisplayVoteModal(props) {
                             </Form.Label>
                             <Col sm="7">
                                 <Form.Range
+                                    min={0}
+                                    max={100}
                                     value={data.value}
                                     onChange={(e) => {
                                         const newFormData = [...formData.vote];
                                         newFormData[index].value = e.target.value;
                                         setFormData({ sign: userSign, vote: newFormData });
                                     }}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                    aria-valueNow={data.value}
                                 />
                             </Col>
                             <Col sm="2">
