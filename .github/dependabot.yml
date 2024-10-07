@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "yarn"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "01:00"
+    commit-message:
+      prefix: "yarn"
+    groups:
+      all:
+        patterns:
+          - "*"
