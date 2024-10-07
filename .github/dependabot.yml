@@ -1,12 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: "yarn"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
       time: "01:00"
     commit-message:
-      prefix: "yarn"
+      prefix: "npm"
     groups:
       all:
         patterns:
