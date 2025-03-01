@@ -9,11 +9,11 @@
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.5",
+    "react-router-dom": "^7.2.0",
     "react-scripts": "^5.0.1",
     "react-twitter-embed": "^4.0.4",
     "spotify-web-api-js": "^1.5.2",
-    "styled-components": "^6.1.14",
+    "styled-components": "^6.1.15",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
@@ -44,9 +44,9 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
-    "prettier": "^3.4.2"
+    "prettier": "^3.5.2"
   }
 }
